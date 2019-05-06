@@ -129,7 +129,7 @@ if (isset($_POST['submit'])) {
                 jQuery.parseJSON(jqXHR.responseText).message;
                 alert(errorString);
             });
-        });
+        });    
     </script>
 
 <br>
