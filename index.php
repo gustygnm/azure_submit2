@@ -8,8 +8,8 @@ use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 
-$connectionString = "DefaultEndpointsProtocol=https;AccountName=dicoding;AccountKey=KBlYJdOxttoOjNvxBioXtJBR7uxzbjohMgzXaCC9l7R2oHmzhwqTTpd9F6brtrBnFP28BV1eYhwEzRETV4QOOA==;";
-$containerName = "blobrizqi";
+$connectionString = "DefaultEndpointsProtocol=https;AccountName=gnmsubmit2;AccountKey=nETKn9LreUmUCkpxCnG6US1QVkVFNDbszSlpzxyIEyqOTw32rsyuhXzoq35sbz5C/91Cg2B+TTEgzMwaDeHsrw==;";
+$containerName = "gnmcontainer";
 // Create blob client.
 $blobClient = BlobRestProxy::createBlobService($connectionString);
 if (isset($_POST['submit'])) {
@@ -58,7 +58,7 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="index_admin.php">SMART IDENTIFIER</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.php">SMART IDENTIFIER</a>
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fas fa-bars"></i>
@@ -84,7 +84,7 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
         <hr class="star-dark mb-5">
        <main role="main" class="container">
         <div class="starter-template"> 
-        <p align="center" class="lead">1. Pilih Foto Yang Ingin Anda Identifikasi.<br>2. Kemudian Click <b>Upload</b><br>3. Untuk menganalisa foto pilih <b>analyze</b> pada tabel.</p>
+        <p align="center" class="lead">1. Klik Choose File dan Pilih Foto Yang Ingin Anda Identifikasi.<br>2. Kemudian Klik <b>Upload</b><br>3. Untuk menganalisa foto pilih <b>Analisa</b> pada tabel.</p>
         <span class="border-top my-3"></span>
       </div>
     <div class="mt-4 mb-2">
@@ -116,7 +116,7 @@ $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
               <td>
                 <form action="computervision.php" method="post">
                   <input type="hidden" name="url" value="<?php echo $blob->getUrl()?>">
-                  <input type="submit" name="submit" value="Analyze!" class="btn btn-primary">
+                  <input type="submit" name="submit" value="Analisa" class="btn btn-primary">
                 </form>
               </td>
             </tr>

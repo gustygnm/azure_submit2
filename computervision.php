@@ -2,7 +2,6 @@
 if (isset($_POST['submit'])) {
   if (isset($_POST['url'])) {
     $url = $_POST['url'];
-     // $url = "https://timedotcom.files.wordpress.com/2018/09/bill-gates-africa.jpg";
   } else {
     header("Location: index.php");
   }
@@ -10,6 +9,7 @@ if (isset($_POST['submit'])) {
   header("Location: index.php");
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,6 +37,7 @@ if (isset($_POST['submit'])) {
     <!-- Custom styles for this template -->
     <link href="css/freelancer.min.css" rel="stylesheet">
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
   </head>
 
   <body id="page-top">
@@ -44,7 +45,7 @@ if (isset($_POST['submit'])) {
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="index_admin.php">SMART IDENTIFIER</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.php">SMART IDENTIFIER</a>
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fas fa-bars"></i>
@@ -52,7 +53,7 @@ if (isset($_POST['submit'])) {
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" onclick="processImage()">Home</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php">Home</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="https://www.linkedin.com/in/gusti-ngurah-mertayasa-342bab166/">About Me</a>
@@ -75,70 +76,61 @@ if (isset($_POST['submit'])) {
         <span class="border-top my-3"></span>
       </div>
   
-<script type="text/javascript">
-    function processImage() {
-        // **********************************************
-        // *** Update or verify the following values. ***
-        // **********************************************
- 
-        // Replace <Subscription Key> with your valid subscription key.
-        var subscriptionKey = "109204d199cc4f4ab2642040d7e4813d";
- 
-        // You must use the same Azure region in your REST API method as you used to
-        // get your subscription keys. For example, if you got your subscription keys
-        // from the West US region, replace "westcentralus" in the URL
-        // below with "westus".
-        //
-        // Free trial subscription keys are generated in the "westus" region.
-        // If you use a free trial subscription key, you shouldn't need to change
-        // this region.
-        var uriBase =
+  <script type="text/javascript">
+            $(document).ready(function () {
+            // **********************************************
+            // *** Update or verify the following values. ***
+            // **********************************************
+            // Replace <Subscription Key> with your valid subscription key.
+            var subscriptionKey = "109204d199cc4f4ab2642040d7e4813d";
+            // You must use the same Azure region in your REST API method as you used to
+            // get your subscription keys. For example, if you got your subscription keys
+            // from the West US region, replace "westcentralus" in the URL
+            // below with "westus".
+            //
+            // Free trial subscription keys are generated in the "westus" region.
+            // If you use a free trial subscription key, you shouldn't need to change
+            // this region.
+            var uriBase =
             "https://southeastasia.api.cognitive.microsoft.com/vision/v2.0/analyze";
- 
-        // Request parameters.
-        var params = {
-            "visualFeatures": "Categories,Description,Color",
-            "details": "",
-            "language": "en",
-        };
- 
-        // Display the image.
-        var sourceImageUrl = "<?php echo $url ?>";
-        document.querySelector("#sourceImage").src = sourceImageUrl;
- 
-        // Make the REST API call.
-        $.ajax({
-            url: uriBase + "?" + $.param(params),
- 
-            // Request headers.
-            beforeSend: function(xhrObj){
-                xhrObj.setRequestHeader("Content-Type","application/json");
-                xhrObj.setRequestHeader(
-                    "Ocp-Apim-Subscription-Key", subscriptionKey);
-            },
- 
-            type: "POST",
- 
-            // Request body.
-            data: '{"url": ' + '"' + sourceImageUrl + '"}',
-        })
- 
-        .done(function(data) {
-            // Show formatted JSON on webpage.
-            $("#responseTextArea").val(JSON.stringify(data, null, 2));
+            // Request parameters.
+            var params = {
+                "visualFeatures": "Categories,Description,Color",
+                "details": "",
+                "language": "en",
+            };
+            // Display the image.
+            var sourceImageUrl = "<?php echo $url ?>";
+            document.querySelector("#sourceImage").src = sourceImageUrl;
+            // Make the REST API call.
+            $.ajax({
+                url: uriBase + "?" + $.param(params),
+                // Request headers.
+                beforeSend: function(xhrObj){
+                    xhrObj.setRequestHeader("Content-Type","application/json");
+                    xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+                },
+                type: "POST",
+                // Request body.
+                data: '{"url": ' + '"' + sourceImageUrl + '"}',
+            })
+            .done(function(data) {
+                // Show formatted JSON on webpage.
+                $("#responseTextArea").val(JSON.stringify(data, null, 2));
+                // console.log(data);
+                // var json = $.parseJSON(data);
                 $("#description").text(data.description.captions[0].text);
-        })
- 
-        .fail(function(jqXHR, textStatus, errorThrown) {
-            // Display error message.
-            var errorString = (errorThrown === "") ? "Error. " :
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                // Display error message.
+                var errorString = (errorThrown === "") ? "Error. " :
                 errorThrown + " (" + jqXHR.status + "): ";
-            errorString += (jqXHR.responseText === "") ? "" :
+                errorString += (jqXHR.responseText === "") ? "" :
                 jQuery.parseJSON(jqXHR.responseText).message;
-            alert(errorString);
+                alert(errorString);
+            });
         });
-    };
-</script>
+    </script>
 
 <br>
 <div id="wrapper" style="width:1020px; display:table;">
@@ -153,7 +145,9 @@ if (isset($_POST['submit'])) {
     <br><br>
     <img id="sourceImage" width="400" />
     <br>
-    <h3 id="description">Loading description. . .</h3>
+    <br>
+    <h3 align="center">Hasil analisa foto:</h3>
+    <h4 align="center" id="description">Loading description. . .</h4>
   </div>
 </div>
 
