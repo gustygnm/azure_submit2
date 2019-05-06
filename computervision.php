@@ -73,6 +73,7 @@ if (isset($_POST['submit'])) {
         <div class="starter-template"> 
         <p align="center" class="lead">Berikut merupakan hasil analisis foto yang <b>Anda</b> Upload.
         <br> Karakteristik Foto ada pada kolom Response.</p>
+        <br>
         <span class="border-top my-3"></span>
       </div>
   
@@ -82,7 +83,7 @@ if (isset($_POST['submit'])) {
             // *** Update or verify the following values. ***
             // **********************************************
             // Replace <Subscription Key> with your valid subscription key.
-            var subscriptionKey = "109204d199cc4f4ab2642040d7e4813d";
+            var subscriptionKey = "52f3336cb84742bab3112f30a8505fb3";
             // You must use the same Azure region in your REST API method as you used to
             // get your subscription keys. For example, if you got your subscription keys
             // from the West US region, replace "westcentralus" in the URL
@@ -130,6 +131,7 @@ if (isset($_POST['submit'])) {
                 alert(errorString);
             });
         });    
+
     </script>
 
 <br>
